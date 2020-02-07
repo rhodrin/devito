@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      HOST: " "
+      HOST: "51.132.14.19"
 
     steps:
     # checkout code from repo

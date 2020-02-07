@@ -40,7 +40,7 @@ jobs:
         -adminLogin ${{ secrets.ADMIN_LOGIN }}
         -adminPassword ${{ secrets.ADMIN_PASSWORD }}
     - name: set host
-      run: echo ::set-env name=HOST::$(az vm show -d -g RhodriGpu -n githubactions --query publicIps -o tsv)
+      run: echo ::set-env name=HOST::$(az vm show -d -g RhodriGpu -n testgpu --query publicIps -o tsv)
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:

@@ -28,7 +28,7 @@ jobs:
         RESOURCE_GROUP: RhodriGpu
         RESOURCE_GROUP_REGION: uksouth
         SERVER_NAME: testgpu
-      run: |
+      run: >
         pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'"
         -servicePrincipal ${{ secrets.SERVICE_PRINCIPAL_APPID }}
         -servicePrincipalSecret ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
@@ -39,8 +39,8 @@ jobs:
         -serverName $SERVER_NAME
         -adminLogin ${{ secrets.ADMIN_LOGIN }}
         -adminPassword ${{ secrets.ADMIN_PASSWORD }}
-        echo ::set-env name=HOST::$(az vm show -d -g RhodriGpu -n githubactions --query publicIps -o tsv)
-
+    - name: set host
+      run: echo ::set-env name=HOST::$(az vm show -d -g RhodriGpu -n githubactions --query publicIps -o tsv)
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:

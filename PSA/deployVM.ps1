@@ -81,7 +81,7 @@ try {
     az vm create  `
         --resource-group $resourceGroupName `
         --name $serverName `
-        --image $myVMimage `
+        --image $image `
         --admin-username $adminLogin `
         --admin-password $adminPassword
     }

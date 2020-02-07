@@ -81,7 +81,7 @@ try {
     az vm create  `
         --resource-group $resourceGroupName `
         --name $serverName `
-        --image win2019datacenter `
+        --image UbuntuLTS `
         --admin-username $adminLogin `
         --admin-password $adminPassword
     }

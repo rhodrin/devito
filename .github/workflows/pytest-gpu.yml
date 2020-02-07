@@ -12,6 +12,9 @@ jobs:
   DeployVM:
     runs-on: ubuntu-latest
 
+    env:
+      HOST: " "
+
     steps:
     # checkout code from repo
     - name: checkout repo
@@ -25,8 +28,7 @@ jobs:
         RESOURCE_GROUP: RhodriGpu
         RESOURCE_GROUP_REGION: uksouth
         SERVER_NAME: githubactions
-        ADMIN_LOGIN: rhodri
-      run: >
+      run: |
         pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'"
         -servicePrincipal ${{ secrets.SERVICE_PRINCIPAL_APPID }}
         -servicePrincipalSecret ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
@@ -35,9 +37,16 @@ jobs:
         -resourceGroupName $RESOURCE_GROUP
         -resourceGroupNameRegion $RESOURCE_GROUP_REGION
         -serverName $SERVER_NAME
-        -adminLogin $ADMIN_LOGIN
+        -adminLogin ${{ secrets.ADMIN_LOGIN }}
         -adminPassword ${{ secrets.ADMIN_PASSWORD }}
-    - name: log into vm
-      run: |
-        ssh rhodri@$(az vm show -d -g RhodriGpu -n githubactions --query publicIps -o tsv)
+        echo ::set-env name=HOST::$(az vm show -d -g RhodriGpu -n githubactions --query publicIps -o tsv)
 
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: $HOST
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.ADMIN_PASSWORD }}
+        script: |
+          whoami
+          ls -al

@@ -37,6 +37,7 @@ jobs:
         -serverName $SERVER_NAME
         -adminLogin $ADMIN_LOGIN
         -adminPassword ${{ secrets.ADMIN_PASSWORD }}
+    - name: log into vm
         ssh rhodri@$(az vm show -d -g RhodriGpu -n githubactions --query publicIps -o tsv)
         expect "password"
         send "${{ secrets.ADMIN_PASSWORD }}\r"

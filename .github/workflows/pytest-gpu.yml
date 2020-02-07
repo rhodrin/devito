@@ -27,13 +27,13 @@ jobs:
         SERVER_NAME: githubactions
         ADMIN_LOGIN: rhodri
       run: >
-        pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'" 
+        pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'"
         -servicePrincipal ${{ secrets.SERVICE_PRINCIPAL_APPID }}
-        -servicePrincipalSecret ${{ secrets.SERVICE_PRINCIPAL_SECRET }} 
-        -servicePrincipalTenantId ${{ secrets.SERVICE_PRINCIPAL_TENANTID }} 
+        -servicePrincipalSecret ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+        -servicePrincipalTenantId ${{ secrets.SERVICE_PRINCIPAL_TENANTID }}
         -azureSubscriptionName ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        -resourceGroupName %RESOURCE_GROUP% 
-        -resourceGroupNameRegion %RESOURCE_GROUP_REGION%
-        -serverName %SERVER_NAME%
-        -adminLogin %ADMIN_LOGIN% 
+        -resourceGroupName $RESOURCE_GROUP
+        -resourceGroupNameRegion $RESOURCE_GROUP_REGION
+        -serverName $SERVER_NAME
+        -adminLogin $ADMIN_LOGIN
         -adminPassword ${{ secrets.ADMIN_PASSWORD }}

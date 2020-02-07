@@ -27,7 +27,7 @@ jobs:
       env:
         RESOURCE_GROUP: RhodriGpu
         RESOURCE_GROUP_REGION: uksouth
-        SERVER_NAME: githubactions
+        SERVER_NAME: testgpu
       run: |
         pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'"
         -servicePrincipal ${{ secrets.SERVICE_PRINCIPAL_APPID }}

@@ -1,5 +1,5 @@
 # Adapted from https://github.com/weeyin83/vm-actions
-# Provision a VM within Azure
+# Provision a VM within Azure (test)
 #
 [CmdletBinding()]
 param(

@@ -25,7 +25,7 @@ jobs:
         RESOURCE_GROUP: RhodriGpu
         RESOURCE_GROUP_REGION: uksouth
         SERVER_NAME: githubactions
-        # IMAGE_NAME: gpuImage
+        # IMAGE_NAME: gpuImage # add trigger
         ADMIN_LOGIN: rhodri
       run: >
         pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'" 

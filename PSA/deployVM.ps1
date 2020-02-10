@@ -81,7 +81,7 @@ try {
     az vm create  `
         --resource-group $resourceGroupName `
         --name $serverName `
-        --image UbuntuLTS `
+        --image RhodriGpuVM-image-20200210110731 `
         --admin-username $adminLogin `
         --admin-password $adminPassword
     }

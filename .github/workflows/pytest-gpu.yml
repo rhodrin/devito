@@ -46,5 +46,7 @@ jobs:
         username: ${{ secrets.ADMIN_LOGIN }}
         password: ${{ secrets.ADMIN_PASSWORD }}
         script: |
-          whoami
-          ls -al
+          conda activate devito
+          cd programs/devito
+          git pull
+          DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py

@@ -45,6 +45,7 @@ jobs:
         host: ${{ steps.host.outputs.action_host }}
         username: ${{ secrets.ADMIN_LOGIN }}
         password: ${{ secrets.ADMIN_PASSWORD }}
+        script_stop: true
         script: |
           conda activate devito
           export PATH=~/programs/install/bin:$PATH

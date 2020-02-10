@@ -39,7 +39,7 @@ jobs:
     - name: set host
       run: echo ::set-output name=action_host::$(az vm show -d -g RhodriGpu -n testgpu --query publicIps -o tsv)
       id: host
-    - name: executing remote ssh commands
+    - name: executing remote ssh commands test
       uses: appleboy/ssh-action@master
       with:
         host: ${{ steps.host.outputs.action_host }}

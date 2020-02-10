@@ -47,8 +47,5 @@ jobs:
         password: ${{ secrets.ADMIN_PASSWORD }}
         script_stop: true
         script: |
-          conda activate devito
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          cd programs/devito
-          DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py

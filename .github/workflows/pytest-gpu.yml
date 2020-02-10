@@ -51,4 +51,4 @@ jobs:
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
           source activate devito
           cd programs/devito
-          DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py
+          DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito ~/programs/devito/tests/test_gpu.py

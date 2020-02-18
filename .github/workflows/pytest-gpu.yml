@@ -68,7 +68,8 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          conda -h
+          activate="conda activate devito"
+          $activate
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
         pass: ${{ secrets.ADMIN_PASSWORD }}

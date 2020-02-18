@@ -56,7 +56,7 @@ jobs:
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          activate="conda activate devito"
+          activate="source activate devito"
           $activate
           testcd="cd /home/rhodri/programs/devito"
           $testcd

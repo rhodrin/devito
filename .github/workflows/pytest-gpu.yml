@@ -41,20 +41,20 @@ jobs:
       id: host
     - name: executing remote ssh commands test
       uses: appleboy/ssh-action@master
-      env:
-        myhome: "cd /home"
-        userdir: ${{ secrets.ADMIN_LOGIN }}
-        target: "home/rhodri/programs/devito"
-        activate: "conda activate devito"
-        run_tests: "DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
+      #env:
+        #myhome: "cd /home"
+        #userdir: ${{ secrets.ADMIN_LOGIN }}
+        #target: "home/rhodri/programs/devito"
+        #activate: "conda activate devito"
+        #run_tests: "DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
       with:
         host: ${{ steps.host.outputs.action_host }}
         username: ${{ secrets.ADMIN_LOGIN }}
         password: ${{ secrets.ADMIN_PASSWORD }}
         script_stop: true
-        envs: myhome, userdir, target, activate, run_tests
+        #envs: myhome, userdir, target, activate, run_tests
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          echo $myhome
-          echo $activate
+          testcd="cd /home/"
+          echo $testcd

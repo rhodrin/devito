@@ -42,7 +42,7 @@ jobs:
     - name: executing remote ssh commands test
       uses: appleboy/ssh-action@master
       env:
-        myhome: "/home"
+        myhome: "cd /home"
         userdir: ${{ secrets.ADMIN_LOGIN }}
         target: "home/rhodri/programs/devito"
         activate: "conda activate devito"
@@ -56,5 +56,5 @@ jobs:
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          cd $myhome
+          $myhome
           pwd

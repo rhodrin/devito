@@ -51,4 +51,4 @@ jobs:
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          cd /home/${userdir}
+          cd /home/${userdir}/programs/devito

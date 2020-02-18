@@ -43,12 +43,14 @@ jobs:
       uses: appleboy/ssh-action@master
       env:
         userdir: ${{ secrets.ADMIN_LOGIN }}
+        target: "/programs/devito"
       with:
         host: ${{ steps.host.outputs.action_host }}
         username: ${{ secrets.ADMIN_LOGIN }}
         password: ${{ secrets.ADMIN_PASSWORD }}
         script_stop: true
+        envs: target
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          cd /home/${userdir}/programs/devito
+          cd /home/${userdir}${target}

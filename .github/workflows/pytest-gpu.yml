@@ -60,5 +60,6 @@ jobs:
           #$activate
           testcd="cd /home/rhodri/programs/devito"
           $testcd
-          run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
-          $run_tests
+          pwd
+          #run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
+          #$run_tests

@@ -47,19 +47,21 @@ jobs:
         #target: "home/rhodri/programs/devito"
         #activate: "conda activate devito"
         #run_tests: "DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
+        #run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
+        #$run_tests
+        #envs: myhome, userdir, target, activate, run_tests
+        #activate="source activate devito"
+        #$activate
       with:
         host: ${{ steps.host.outputs.action_host }}
         username: ${{ secrets.ADMIN_LOGIN }}
         password: ${{ secrets.ADMIN_PASSWORD }}
         script_stop: true
-        #envs: myhome, userdir, target, activate, run_tests
+        
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          #activate="source activate devito"
-          #$activate
           testcd="cd /home/rhodri/programs/devito"
           $testcd
           pwd
-          #run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
-          #$run_tests
+          ls

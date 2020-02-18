@@ -57,7 +57,6 @@ jobs:
         #username: ${{ secrets.ADMIN_LOGIN }}
         #password: ${{ secrets.ADMIN_PASSWORD }}
         #script_stop: true
-        
         #script: |
           #export PATH=~/programs/install/bin:$PATH
           #export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
@@ -77,3 +76,4 @@ jobs:
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
         key: ${{ secrets.ADMIN_PASSWORD }}
+

@@ -57,3 +57,4 @@ jobs:
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
           echo $myhome
+          echo $activate

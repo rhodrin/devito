@@ -75,5 +75,5 @@ jobs:
           pwd
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
-        key: ${{ secrets.ADMIN_PASSWORD }}
+        pass: ${{ secrets.ADMIN_PASSWORD }}
 

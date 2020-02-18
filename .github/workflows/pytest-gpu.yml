@@ -68,12 +68,13 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
+          if [ -f ~/.bashrc ]; then
+            . ~/.bashrc
+          fi
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
           cd ~/programs/devito
-          pwd
-          activate="conda activate devito"
-          $activate
+          conda activate devito
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
         pass: ${{ secrets.ADMIN_PASSWORD }}

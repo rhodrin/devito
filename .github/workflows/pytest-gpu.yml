@@ -56,5 +56,6 @@ jobs:
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          testcd="cd /home/"
+          testcd="cd /home/rhodri/programs/devito"
           echo $testcd
+          $testcd

@@ -56,8 +56,8 @@ jobs:
         script: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          activate="source activate devito"
-          $activate
+          #activate="source activate devito"
+          #$activate
           testcd="cd /home/rhodri/programs/devito"
           $testcd
           run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"

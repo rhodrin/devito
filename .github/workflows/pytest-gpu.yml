@@ -39,29 +39,41 @@ jobs:
     - name: set host
       run: echo ::set-output name=action_host::$(az vm show -d -g RhodriGpu -n testgpu --query publicIps -o tsv)
       id: host
-    - name: executing remote ssh commands test
-      uses: appleboy/ssh-action@master
-      #env:
-        #myhome: "cd /home"
-        #userdir: ${{ secrets.ADMIN_LOGIN }}
-        #target: "home/rhodri/programs/devito"
-        #activate: "conda activate devito"
-        #run_tests: "DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
-        #run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
-        #$run_tests
-        #envs: myhome, userdir, target, activate, run_tests
-        #activate="source activate devito"
-        #$activate
-      with:
-        host: ${{ steps.host.outputs.action_host }}
-        username: ${{ secrets.ADMIN_LOGIN }}
-        password: ${{ secrets.ADMIN_PASSWORD }}
-        script_stop: true
+    #- name: executing remote ssh commands test
+      #uses: appleboy/ssh-action@master
+      ##env:
+        ##myhome: "cd /home"
+        ##userdir: ${{ secrets.ADMIN_LOGIN }}
+        ##target: "home/rhodri/programs/devito"
+        ##activate: "conda activate devito"
+        ##run_tests: "DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
+        ##run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
+        ##$run_tests
+        ##envs: myhome, userdir, target, activate, run_tests
+        ##activate="source activate devito"
+        ##$activate
+      #with:
+        #host: ${{ steps.host.outputs.action_host }}
+        #username: ${{ secrets.ADMIN_LOGIN }}
+        #password: ${{ secrets.ADMIN_PASSWORD }}
+        #script_stop: true
         
-        script: |
+        #script: |
+          #export PATH=~/programs/install/bin:$PATH
+          #export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
+          #testcd="cd /home/rhodri/programs/devito"
+          #$testcd
+          #pwd
+          #ls
+    - name: executing remote ssh commands test
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          testcd="cd /home/rhodri/programs/devito"
-          $testcd
+          conda activate devito
+          cd /home/rhodri/programs/devito
           pwd
-          ls
+        host: ${{ steps.host.outputs.action_host }}
+        user: ${{ secrets.ADMIN_LOGIN }}
+        key: ${{ secrets.ADMIN_PASSWORD }}

@@ -73,6 +73,7 @@ jobs:
           source ~/anaconda3/etc/profile.d/conda.sh
           conda activate devito
           cd ~/programs/devito
+          DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
         pass: ${{ secrets.ADMIN_PASSWORD }}

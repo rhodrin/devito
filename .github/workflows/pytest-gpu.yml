@@ -68,17 +68,18 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          . ~/.bashrc
-          export PATH="/home/rhodri/anaconda3/bin:$PATH"
-          conda init bash
           export PATH=~/programs/install/bin:$PATH
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          cd ~/programs/devito
+          source ~/anaconda3/etc/profile.d/conda.sh
           conda activate devito
+          cd ~/programs/devito
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
         pass: ${{ secrets.ADMIN_PASSWORD }}
 
+          #. ~/.bashrc
+          #export PATH="/home/rhodri/anaconda3/bin:$PATH"
+          #conda init bash
           #export PATH=~/programs/install/bin:$PATH
           #export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
           #conda activate devito

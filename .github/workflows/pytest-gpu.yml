@@ -1,0 +1,54 @@
+# Adapted from https://github.com/weeyin83/vm-actions
+name: Deploy VM on Azure and run GPU tests
+
+env:
+  OUTPUT_PATH: ${{ github.workspace }}
+
+on: [push]
+
+jobs:
+
+  # Deploy VM in Azure
+  DeployVM:
+    runs-on: ubuntu-latest
+
+    steps:
+    # checkout code from repo
+    - name: checkout repo
+      uses: actions/checkout@v1
+
+    - name: look for ps1 file
+      run: |
+        ls '${{ env.OUTPUT_PATH }}/PSA'
+    - name: deploy VM
+      env:
+        RESOURCE_GROUP: RhodriGpu
+        RESOURCE_GROUP_REGION: uksouth
+        SERVER_NAME: testgpu
+      run: >
+        pwsh -command "& '${{ env.OUTPUT_PATH }}\PSA\deployVM.ps1'"
+        -servicePrincipal ${{ secrets.SERVICE_PRINCIPAL_APPID }}
+        -servicePrincipalSecret ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+        -servicePrincipalTenantId ${{ secrets.SERVICE_PRINCIPAL_TENANTID }}
+        -azureSubscriptionName ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        -resourceGroupName $RESOURCE_GROUP
+        -resourceGroupNameRegion $RESOURCE_GROUP_REGION
+        -serverName $SERVER_NAME
+        -adminLogin ${{ secrets.ADMIN_LOGIN }}
+        -adminPassword ${{ secrets.ADMIN_PASSWORD }}
+    - name: set host
+      run: echo ::set-output name=action_host::$(az vm show -d -g RhodriGpu -n testgpu --query publicIps -o tsv)
+      id: host
+    - name: executing remote ssh commands test
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          export PATH=~/programs/install/bin:$PATH
+          export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
+          source ~/anaconda3/etc/profile.d/conda.sh
+          conda activate devito
+          cd ~/programs/devito
+          DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py
+        host: ${{ steps.host.outputs.action_host }}
+        user: ${{ secrets.ADMIN_LOGIN }}
+        pass: ${{ secrets.ADMIN_PASSWORD }}

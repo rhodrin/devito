@@ -1,5 +1,5 @@
 # Adapted from https://github.com/weeyin83/vm-actions
-name: Deploy VM on Azure
+name: Deploy VM on Azure and run GPU tests
 
 env:
   OUTPUT_PATH: ${{ github.workspace }}
@@ -7,7 +7,7 @@ env:
 on: [push]
 
 jobs:
-      
+
   # Deploy VM in Azure
   DeployVM:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
     - name: look for ps1 file
       run: |
         ls '${{ env.OUTPUT_PATH }}/PSA'
-    - name: provision virtual machine in azure
+    - name: deploy VM
       env:
         RESOURCE_GROUP: RhodriGpu
         RESOURCE_GROUP_REGION: uksouth
@@ -39,31 +39,6 @@ jobs:
     - name: set host
       run: echo ::set-output name=action_host::$(az vm show -d -g RhodriGpu -n testgpu --query publicIps -o tsv)
       id: host
-    #- name: executing remote ssh commands test
-      #uses: appleboy/ssh-action@master
-      ##env:
-        ##myhome: "cd /home"
-        ##userdir: ${{ secrets.ADMIN_LOGIN }}
-        ##target: "home/rhodri/programs/devito"
-        ##activate: "conda activate devito"
-        ##run_tests: "DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
-        ##run_tests="DEVITO_ARCH=clang DEVITO_PLATFORM=nvidiaX py.test -s -x --cov devito tests/test_gpu.py"
-        ##$run_tests
-        ##envs: myhome, userdir, target, activate, run_tests
-        ##activate="source activate devito"
-        ##$activate
-      #with:
-        #host: ${{ steps.host.outputs.action_host }}
-        #username: ${{ secrets.ADMIN_LOGIN }}
-        #password: ${{ secrets.ADMIN_PASSWORD }}
-        #script_stop: true
-        #script: |
-          #export PATH=~/programs/install/bin:$PATH
-          #export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          #testcd="cd /home/rhodri/programs/devito"
-          #$testcd
-          #pwd
-          #ls
     - name: executing remote ssh commands test
       uses: fifsky/ssh-action@master
       with:
@@ -77,13 +52,3 @@ jobs:
         host: ${{ steps.host.outputs.action_host }}
         user: ${{ secrets.ADMIN_LOGIN }}
         pass: ${{ secrets.ADMIN_PASSWORD }}
-
-          #. ~/.bashrc
-          #export PATH="/home/rhodri/anaconda3/bin:$PATH"
-          #conda init bash
-          #export PATH=~/programs/install/bin:$PATH
-          #export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
-          #conda activate devito
-          #cd /home/rhodri/programs/devito
-          #pwd
-

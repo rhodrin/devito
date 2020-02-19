@@ -70,6 +70,7 @@ jobs:
         command: |
           . ~/.bashrc
           export PATH=~/programs/install/bin:$PATH
+          export PATH="/home/rhodri/anaconda3/bin:$PATH"
           export LD_LIBRARY_PATH=~/programs/install/lib:$LD_LIBRARY_PATH
           cd ~/programs/devito
           conda activate devito
